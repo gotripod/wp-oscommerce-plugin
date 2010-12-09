@@ -44,12 +44,15 @@ class oscCart {
   public $items = array();
   public $total = 0;
   public $weight = 0;
+  public $totalItems = 0;
+  
   function __construct($oscCart) {
     $this->total = $oscCart->total;
     $this->weight = $oscCart->weight;
     foreach($oscCart->contents as $k => $v) {
       $id = $k;
       $qty = $v['qty'];
+      $this->totalItems += $qty;
       array_push($this->items, new oscCartItem($id, $qty));
     }
   }
