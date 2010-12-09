@@ -1,0 +1,35 @@
+At the moment this isn't a widget or plugin, you just include it it like this:
+
+<?php
+$GLOBALS['OSC_CART_RETRIEVER_HOST'] = '127.0.0.1';
+$GLOBALS['OSC_CART_RETRIEVER_USER'] = 'root';
+$GLOBALS['OSC_CART_RETRIEVER_PASS'] = '';
+$GLOBALS['OSC_CART_RETRIEVER_DB'] = 'osc-wp-test';
+
+require_once('../osc_cart_retriever.php');
+
+$r = new OscCartRetriever();
+$cart = $r->retrieve();
+?>
+
+<h2>Cart</h2>
+
+<?php
+if(isset($cart)) {
+?>
+<ul>
+  <?php
+  foreach($cart->items as $cartItem) {
+    echo '<li><a href="'.$cartItem->url.'">'.$cartItem->quantity.' x '.$cartItem->name.'</a></li>';
+  }
+  ?>
+</ul>
+<p>Total: <?php echo $cart->total; ?></p>
+<p>Weight: <?php echo $cart->weight; ?></p>
+<?php
+} else {
+?>
+<p>No cart</p>
+<?php
+}
+?>
